@@ -1,0 +1,51 @@
+{% extends "listings/base.html" %}
+
+{% load i18n %}
+{% load threadedcommentstags %}
+{% load tagging_tags %}
+{% load comments_tag %}
+{% load listings_tags %}
+
+{% block head_title %}{% blocktrans %}listing{% endblocktrans %} : {{ listing.title }}{% endblock %}
+
+
+{% block body %}
+    
+    <div class="blog-post">
+        <h2>{{ listing.title }}</h2>
+        <div class="blog-meta"><p>listinged by: <a href="{% url profile_detail username=listing.owner.username %}">{{ listing.owner.username }}</a> on {{ listing.time|date }}</p></div>
+        <p>
+			Description: {{ listing.description|urlize }}
+		</p>
+		<p>
+			Want: {{ listing.want|urlize }}
+		</p>
+                
+                
+                <div class="blog-tags">
+            <p><img src="/site_media/tags.png" border="0" class="noborder" align="absmiddle" />
+            {% tags_for_object listing as tags %}
+            {% for tag in tags %}
+                <a href="/tags/{{ tag }}">{{ tag }}</a>
+            {% endfor %}</p>
+			{% if listing %}
+				{% ifequal listing.owner request.user %}
+					<form style="display: inline;" action="{% url listings_edit listing.id %}" method="GET">
+						<input type="submit" value="{% trans "Edit listing" %}" />
+					</form>
+						<form style="display: inline;" action="{% url listings_delete listing.id %}" method="POST">
+							<input type="submit" value="{% trans "Delete listing" %}" />
+					</form>
+                                {% else %}
+                                        {% listing_add_remove listing user %}
+                                {% endifequal %}
+
+			{% endif %}
+        </div>
+
+    </div>
+
+    
+    {% comments listing %}
+
+{% endblock %}

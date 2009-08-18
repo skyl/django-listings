@@ -1,0 +1,2 @@
+{% load i18n %}{% url profile_detail username=commenter.username as user_url %}
+{% blocktrans with listing.get_absolute_url as listing_url %}<a href="{{ user_url }}">{{ commenter }}</a> has commented on your listing '<a href="{{ listing_url }}">{{ listing }}</a>'{% endblocktrans %}

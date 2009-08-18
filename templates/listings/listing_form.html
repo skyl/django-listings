@@ -1,0 +1,30 @@
+{% extends "listings/base.html" %}
+
+{% load i18n %}
+{% load uni_form %}
+
+{% block head_title %}{% blocktrans %}Add a new listing{% endblocktrans %}{% endblock %}
+
+{% block body %}
+    
+    <h1>{% trans "Add a new listing" %}</h1>
+
+   <form class="uniForm" id="create-event" method="POST" enctype="multipart/form-data" 
+        {% if listing_id %}
+        action={% url listings_edit listing_id=listing_id %}
+        {% else %}
+        action="{% url listings_new %}">
+        {% endif %}
+
+        <fieldset class="inlineLabels">
+
+            {{form|as_uni_form}}
+
+           <div class="form_block">
+                <input type="submit" value="Submit" />
+            </div>
+        </fieldset>
+    </form>
+
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% if not watched %}
+<form action="{% url listings_watch listing.id %}" method="POST">
+    <input type="submit" value="Watch Listing" />
+    <input type="hidden" name="action" value="watch">
+</form>
+
+{% else %}
+<form action="{% url listings_watch listing.id %}" method="POST">
+    <input type="submit" value="Stop Watching" />
+    <input type="hidden" name="action" value="stop" />
+</form>
+{% endif %}
+
+

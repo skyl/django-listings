@@ -1,0 +1,46 @@
+{% extends "listings/base.html" %}
+
+{% load i18n %}
+{% load pagination_tags %}
+{% load shorttimesince_tag %}
+
+{% block head_title %}{% blocktrans %}Your accepted Listings{% endblocktrans %}{% endblock %}
+
+{% block body %}
+    
+    <h1>{% trans "Your accepted Listings" %}</h1>
+    
+    
+    {% if listings %}
+
+        
+        {% autopaginate listings %}
+
+			<table class="tasks" >
+				<tr>
+					<th>Accepted Time</th>
+					<th>Proposing listing</th>
+					<th>listinged By</th>
+					<th>Responding listing</th>
+					<th>listinged By</th>
+					<th>State</th>
+				</tr>
+				{% for listing in listings %}
+					<tr class="{% cycle odd,even %}">
+						<td><a href="{{ listing.get_absolute_url }}">{{ listing.accepted_time|shorttimesince }}</a></td>
+						<td>{{ listing.proposing_listing }}</td>
+						<td>{{ listing.proposing_listing.listinger }}</td>
+						<td>{{ listing.responding_listing }}</td>
+						<td>{{ listing.responding_listing.listinger }}</td>
+						<td>{{ listing.get_state_display }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+
+        {% paginate %}
+
+    {% else %}
+        No accepted listings yet.
+    {% endif %}
+    
+{% endblock %}

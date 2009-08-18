@@ -1,0 +1,8 @@
+{% load i18n %}
+
+{% url profile_detail username=watcher.username as user_url %}
+{% blocktrans with listing.get_absolute_url as listing_url %}
+
+<a href="{{ user_url }}">{{ watcher }}</a> is no longer watching <a href="{{ listing_url }}">{{ listing }}</a>
+
+{% endblocktrans %}

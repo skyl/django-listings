@@ -1,0 +1,39 @@
+{% extends "listings/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% blocktrans %}Propose a Listing{% endblocktrans %}{% endblock %}
+
+{% block body %}
+    
+    <h1>{% trans "Propose a Listing" %}</h1>
+    
+    <form id="proposal_form" method="POST" action="">
+		<div>
+			<h3>For: {{ listing.short_description }}</h3>
+			<p>
+				listing: {{ listing.listinging }}
+			</p>
+			<p>
+				Want: {{ listing.want|urlize }}
+			</p>
+			<p>
+				listinged by: {{ listing.listinger }}
+			</p>
+		</div>
+		<div>
+			<h3>
+				Listing for one of your existing listings:
+				{{ listing_form.proposing_listing }}
+			</h3>
+		</div>
+        <div>
+			<h3>Or make a new listing:</h3>
+			<table>
+				{{ listing_form }}
+			</table>
+        </div>
+		<p><input type="submit" value="propose"/></p>
+    </form>
+
+{% endblock %}

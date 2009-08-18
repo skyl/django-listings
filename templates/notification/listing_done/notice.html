@@ -1,0 +1,9 @@
+{% load i18n %}
+
+{% url profile_detail username=creator.username as creator_url %}
+
+
+{% blocktrans with listing.get_absolute_url as listing_url and listing.owner as creator and listing.title as listing %}
+
+<a href="{{ creator_url }}">{{ creator }}</a> has cancelled their listing, <a href="{{ listing_url }}">{{listing}}</a>
+{% endblocktrans %}

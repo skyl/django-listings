@@ -1,0 +1,60 @@
+{% extends "listings/base.html" %}
+
+{% load i18n %}
+{% load tagging_tags %}
+{% load comments_tag %}
+
+{% block head_title %}{% blocktrans %}Listing{% endblocktrans %} : {{ listing }}{% endblock %}
+
+
+{% block body %}
+
+	<h1>{{ listing.get_state_display }} {% blocktrans %}Listing{% endblocktrans %}</h1>
+
+    <h2>Proposing listing:</h2>
+    <div class="blog-post">
+        <h3>{{ listing.proposing_listing.short_description }}</h3>
+        <div class="blog-meta"><p>listinged by: <a href="{% url profiles.views.profile listing.proposing_listing.listinger.username %}">{{ listing.proposing_listing.listinger.username }}</a> on {{ listing.proposing_listing.listinged_time|date }}</p></div>
+        <p>
+			listinging: {{ listing.proposing_listing.listinging|urlize }}
+		</p>
+		<p>
+			Want: {{ listing.proposing_listing.want|urlize }}
+		</p>
+		<div>
+			{% ifequal listing.state "1" %}
+				{% ifequal listing.proposing_listing.listinger request.user %}
+					<form action="{% url listing_edit listing.proposing_listing.id %}" method="GET">
+						<input type="hidden" name="returnto" value="proposed_by_you" />
+						<input type="submit" value="{% trans "Edit listing" %}" />
+					</form>
+			    {% endifequal %}
+            {% endifequal %}
+		</div>
+
+    </div>
+    <h2>Responding listing:</h2>
+    <div class="blog-post">
+        <h3>{{ listing.responding_listing.short_description }}</h3>
+        <div class="blog-meta"><p>listinged by: <a href="{% url profiles.views.profile listing.responding_listing.listinger.username %}">{{ listing.responding_listing.listinger.username }}</a> on {{ listing.responding_listing.listinged_time|date }}</p></div>
+        <p>
+			listinging: {{ listing.responding_listing.listinging|urlize }}
+		</p>
+		<p>
+			Want: {{ listing.responding_listing.want|urlize }}
+		</p>
+		<div>
+			{% ifequal listing.state "1" %}
+				{% ifequal listing.responding_listing.listinger request.user %}
+					<form action="{% url listing_edit listing.responding_listing.id %}" method="GET">
+						<input type="hidden" name="returnto" value="proposed_to_you" />
+						<input type="submit" value="{% trans "Edit listing" %}" />
+					</form>
+			    {% endifequal %}
+            {% endifequal %}
+		</div>
+    </div>
+
+    <h2>Discussion of this Listing:</h2>
+    {% comments listing %}
+{% endblock %}

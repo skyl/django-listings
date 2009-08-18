@@ -1,0 +1,14 @@
+{% load i18n %}
+
+{% comment %}
+{% url profile_detail username=listing.owner as creator_url %}
+
+{% blocktrans with listing.get_absolute_url as listing_url %}
+{% endcomment %}
+
+<a href="{{ listing.owner.get_absolute_url }}">{{listing.owner}}</a> created a listing, <a href="{{ listing.get_absolute_url }}">{{listing.title}}</a>.
+
+
+{% comment %}
+{% endblocktrans %}
+{% endcomment %}

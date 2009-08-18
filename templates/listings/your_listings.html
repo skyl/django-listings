@@ -1,0 +1,59 @@
+{% extends "listings/base.html" %}
+
+{% load i18n %}
+{% load pagination_tags %}
+{% load shorttimesince_tag %}
+
+{% block head_title %}{% blocktrans %}Your listings{% endblocktrans %}{% endblock %}
+
+{% block body %}
+
+{% if is_me %}
+<h1>{% trans "Your listings" %}</h1>
+{% else %}
+<h1>{% trans "Watched listings" %}</h1>
+{% endif %}
+    
+    
+    {% if listings %}
+
+        
+        {% autopaginate listings %}
+
+			<table class="tasks" >
+				<tr>
+					<th>Description</th>
+					<th>Updated</th>
+					<th>Offer</th>
+					<th>Want</th>
+					<th>State</th>
+				</tr>
+				{% for listing in listings %}
+					<tr class="{% cycle odd,even %}">
+						<td><a href="{{ listing.get_absolute_url }}">{{ listing.title }}</a></td>
+						<td>{{ listing.time|shorttimesince }}</td>
+						<td>{{ listing.description|urlize }}</td>
+						<td>{{ listing.want|urlize }}</td>
+						<td>{{ listing.get_state_display }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+
+        {% paginate %}
+
+    {% else %}
+        No listings yet.
+    {% endif %}
+
+
+    {% if watched %}
+
+        {% for w in watched %}
+        {{w.listing}}
+        {% endfor %}
+
+    {% else %}
+
+    {% endif %}
+
+{% endblock %}
