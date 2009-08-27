@@ -65,13 +65,13 @@ class Listing(models.Model):
             new=True
         super(Listing, self).save(force_insert, force_update)
 
-        #if new and notification:
-        #    notification.send(User.objects.all().exclude(id=self.owner.id),
-        #        "listing_new",
-        #        {'listing':self, },
-        #    )
+        if new and notification:
+            notification.send(User.objects.all().exclude(id=self.owner.id),
+                "listing_new",
+                {'listing':self, },
+            )
 
-        if notification and (self.state == 2 or self.state == 3):
+        elif notification and (self.state == 2 or self.state == 3):
             notification.send(User.objects.filter(watchrelation__listing=self).exclude(id=self.owner.id),
                 "listing_done",
                 {'listing':self, },

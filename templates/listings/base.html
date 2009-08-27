@@ -9,7 +9,7 @@
 {% block subnav %}
     {% if user.is_authenticated %}
         <ul>
-            <li><a href="{% url listings_all %} ">{% trans "All Rides" %}</a></li>
+            <li><a href="{% url listings_all %} ">{% trans "All Listings" %}</a></li>
             <li><a href="{% url listings_watched %}">{% trans "Watched Listings" %}</a></li>
             <li><a href="{% url listings_yours %}">{% trans "Your Listings" %}</a></li>
 	    <li><a href="{% url listings_new %}">{% trans "Create a Listing" %}</a></li>
