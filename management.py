@@ -13,7 +13,7 @@ if "notification" in settings.INSTALLED_APPS:
                 _("someone has commented on your listing"), default=2)
 
         notification.create_notice_type("listing_done", _("Listing Done"),
-                _("a listing is done"), default=2)
+                _("a listing you are watching is no longer alive"), default=2)
 
         notification.create_notice_type("listing_change", _("Listing Changed"),
                 _("a listing you are watching has changed"), default=2)
@@ -21,10 +21,10 @@ if "notification" in settings.INSTALLED_APPS:
         notification.create_notice_type("listing_delete", _("Listing Deleted"),
                 _("a listing you are watching been deleted"), default=2)
 
-        notification.create_notice_type("listing_watch_start", _("Listing Deleted"),
+        notification.create_notice_type("listing_watch_start", _("Listing Watched"),
                 _("a listing you created has a new watcher"), default=2)
 
-        notification.create_notice_type("listing_watch_stop", _("Listing Deleted"),
+        notification.create_notice_type("listing_watch_stop", _("Listing No Longer Watched"),
                 _("a listing you created lost a watcher"), default=2)
 
 
