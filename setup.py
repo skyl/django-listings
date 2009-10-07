@@ -26,7 +26,7 @@ setup(
     keywords='django,pinax,classfieds',
     author='Skylar Saveland',
     author_email='skylar.saveland@gmail.com',
-    url='http://github.com/skyl/skyl.org/tree/master',
+    url='http://github.com/skyl/django-listings',
     license='MIT',
     packages=find_packages(),
     include_package_data=True,

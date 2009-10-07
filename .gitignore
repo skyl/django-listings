@@ -1,3 +1,4 @@
+pip-log.txt
 *.egg*
 geoip_data/*.dat
 *.pyc
