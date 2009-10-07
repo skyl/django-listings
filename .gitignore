@@ -1,3 +1,4 @@
+*.egg*
 geoip_data/*.dat
 *.pyc
 *.swp

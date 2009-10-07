@@ -13,7 +13,7 @@
     
     <div class="blog-post">
         <h2>{{ listing.title }}</h2>
-        <div class="blog-meta"><p>listinged by: <a href="{% url profile_detail username=listing.owner.username %}">{{ listing.owner.username }}</a> on {{ listing.time|date }}</p></div>
+        <div class="blog-meta"><p>offered by: <a href="{% url profile_detail username=listing.owner.username %}">{{ listing.owner.username }}</a> on {{ listing.time|date }}</p></div>
         <p>
 			Description: {{ listing.description|urlize }}
 		</p>
