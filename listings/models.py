@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.db import models
+from django.contrib.gis.db import models
 from django.db.models import signals
 from django.contrib.auth.models import User
 from django.db import transaction
@@ -16,6 +16,7 @@ if "notification" in settings.INSTALLED_APPS:
     from notification import models as notification
 else:
     notification = None
+
 
 class Listing(models.Model):
     """ A simple listing for a job
@@ -36,6 +37,12 @@ class Listing(models.Model):
     state = models.PositiveSmallIntegerField(_('state'), max_length="1", choices=STATE_CHOICES, default=1)
     time = models.DateTimeField(_('offered time'), auto_now_add=True)
     tags = TagField()
+
+
+    location_string = models.CharField(_('location'), max_length=255)
+    location = models.PointField()
+
+    objects = models.GeoManager()
 
     def __unicode__(self):
         return self.title
