@@ -5,6 +5,10 @@
 
 {% block head_title %}{% blocktrans %}Add a new listing{% endblocktrans %}{% endblock %}
 
+{% block extra_head %}
+{{ form.media }}
+{% endblock %}
+
 {% block body %}
     
     <h1>{% trans "Add a new listing" %}</h1>
