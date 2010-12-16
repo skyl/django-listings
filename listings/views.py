@@ -65,7 +65,7 @@ def new(request):
     '''
     if request.method == 'POST':
         form = ListingForm(request.POST)
-        if form.is_valid:
+        if form.is_valid():
             l = form.save(commit=False)
             l.owner = request.user
             l.save()

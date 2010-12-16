@@ -1,0 +1,6 @@
+django-tagging
+threadedcomments
+django-avatar
+PIL
+django-uni_form
+

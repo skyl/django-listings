@@ -10,57 +10,43 @@
 {% block head_title %}{% blocktrans %}All Open listings{% endblocktrans %}{% endblock %}
 
 {% block body %}
-
-   
-    <h1>{% trans "All Open Listings" %}</h1>
-    
-    
-    {% if listings %}
-
-        
-        {% autopaginate listings %}
-        <table class="listings bookmarks"> 
-            {% for listing in listings %}
-                <tr class="{% cycle odd,even %}">
-					<td>
-						<h2><a href="{{ listing.get_absolute_url }}">{{ listing.title }}</a></h2>
-						<p>
-							Offer: {{ listing.description|truncatewords:15 }}
-						</p>
-						<p>
-							Want: {{ listing.want|truncatewords:15 }}
-						</p>
-					</td>
-					<td>
-                                            {% ifnotequal user listing.owner %}
-                                            {% listing_add_remove listing user %}
-						{% endifnotequal %}
-                                            </td>
-
-                                    <td class="meta">
-
-                        <img src="{% avatar_url listing.owner 80 %}" alt="Photo of {{ other_user }}"/></div>
-
-                        <p><b>offered by:</b><br /><a href="{% url profile_detail username=listing.owner.username %}">{{ listing.owner.username }}</a> on {{ listing.time|date }}</p>
-                        <div class="blog-tags">
-                            <p><img src="/site_media/tagging/tags.png" border="0" class="noborder" align="absmiddle" /> 
+<h1>{% trans "All Open Listings" %}</h1>
+  {% if listings %}      
+    {% autopaginate listings %}
+    <table class="listings bookmarks"> 
+    {% for listing in listings %}
+      <tr class="{% cycle odd,even %}">
+        <td>
+          <h2><a href="{{ listing.get_absolute_url }}">{{ listing.title }}</a></h2>
+	</td>
+        <td>Offer: {{ listing.description|truncatewords:15 }}</td>
+        <td>Want: {{ listing.want|truncatewords:15 }}</td>
+	<td>
+          {% ifnotequal user listing.owner %}
+            {% listing_add_remove listing user %}
+          {% endifnotequal %}
+        </td>
+        <td class="meta">
+            <img src="{% avatar_url listing.owner 80 %}" alt="Photo of {{ other_user }}"/>
+            <p><b>offered by:</b><br />
+              <a href="{% url profile_detail username=listing.owner.username %}">{{ listing.owner.username }}</a>
+              on {{ listing.time|date }}
+            </p>
+            <div class="blog-tags">
+              <img src="/site_media/tagging/tags.png" border="0" class="noborder" align="absmiddle" /> 
                             {% tags_for_object listing as tags %}
                             {% for tag in tags %}
                                 <a href="/tags/{{ tag }}">{{ tag }}</a>
                             {% endfor %}
-                        </div>
-                    </td>
-                </tr>
-                {% endfor %}
-
-			</table>
-        
-        {% paginate %}
-    
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+      </table>
+      {% paginate %}
     {% else %}
-        No open listings.
+       <a href="{% url listings_new %}">Please create a new listing</a> 
     {% endif %}
-    
 {% endblock %}
 {% block extra_body %}
 {% endblock %}
