@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
 from django.template.defaultfilters import slugify
+from django.template.loader import render_to_string
 
 from tagging.fields import TagField
 from tagging.models import Tag
@@ -19,9 +20,7 @@ else:
 
 
 class Listing(models.Model):
-    """ A simple listing for a job
-
-    """
+    """A simple listing"""
 
     STATE_CHOICES = (
         (1, _('alive')),
@@ -47,9 +46,14 @@ class Listing(models.Model):
     def __unicode__(self):
         return self.title
 
+    @models.permalink
     def get_absolute_url(self):
         return ('listings.views.listing', (), {'id':self.id, 'slug':self.slug})
-    get_absolute_url = models.permalink(get_absolute_url)
+
+    @property
+    def info_map_html(self):
+        c = {'listing': self}
+        return render_to_string('listings/info_map.html', c)
 
     def is_alive(self):
         """

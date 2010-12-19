@@ -1,0 +1,9 @@
+<h4><a href="{{ listing.get_absolute_url }}">{{ listing.title }}</a></h4>
+<a href="{% url profile_detail listing.owner.username %}">{{ listing.owner.username }}</a>
+<p>
+  {{ listing.description|truncatewords:15 }}
+</p>
+Offered on: {{ listing.time }}<br>
+{{ listing.tags }}
+
+
