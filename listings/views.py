@@ -85,7 +85,7 @@ def edit_listing(request, listing_id):
 
     return update_object(
             request,
-            model=Listing,
+            form_class=ListingForm,
             object_id = listing_id,
             extra_context = locals()
     )
